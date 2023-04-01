@@ -274,3 +274,523 @@
     transform: rotate(0deg);
   }
 }
+
+.title {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 50px;
+  text-align: center;
+  width: 650px;
+
+  color: #000000;
+}
+
+.specialWord {
+  color: #2a46eb;
+}
+
+.searchbar {
+  box-sizing: border-box;
+  width: 690px;
+  height: 59px;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px 15px rgba(0, 0, 0, 0.03);
+  border-radius: 50px;
+  padding: 0 1.5rem;
+}
+
+.searchbarMini {
+  box-sizing: border-box;
+  width: 20%;
+  height: 45px;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px 15px rgba(0, 0, 0, 0.03);
+  border-radius: 15px;
+  padding: 0 1.5rem;
+}
+
+.searchInput {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background: transparent !important;
+  border: none !important;
+  color: black !important;
+  font-size: 24px;
+  line-height: 30px;
+  padding: 0 20px;
+}
+
+.searchInput:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.searchInput:focus-visible {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.header {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.subheader {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.projectCard {
+  width: 266px;
+  height: 266px;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+}
+
+.projectImage {
+  width: 266px;
+  height: 192px;
+  border-radius: 20px 20px 0px 0px;
+  object-fit: cover;
+}
+
+.projectTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: center;
+  color: #000000;
+}
+
+.projectSubtitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.blackstar {
+  width: 17px;
+  height: 16px;
+}
+
+.projectTextContainer {
+  width: 100%;
+  justify-content: space-between !important;
+  padding: 0 1rem;
+}
+
+.reviewImage {
+  width: 56px !important;
+  height: 55px !important;
+  border-radius: 10px !important;
+}
+
+.star {
+  width: 25px;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.review {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.reviewCard {
+  width: 266px;
+  height: 266px;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+
+  padding: 1rem;
+}
+
+.specialWord2 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.carousel {
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.selected {
+  color: black !important;
+  border-bottom: 3px solid black;
+}
+
+.profileImage {
+  width: 266px !important;
+  height: 266px !important;
+  border-radius: 20px;
+}
+
+.leftSection {
+  width: 30%;
+  height: 100%;
+  justify-content: flex-start !important;
+}
+
+.stickySection {
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  top: 100px;
+}
+
+.rightSection {
+  width: 70%;
+}
+
+.rightInnerSection {
+  width: 100%;
+  align-items: flex-start !important;
+}
+
+.profileTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 60px;
+
+  color: #000000;
+}
+
+.profileSubtitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  padding-bottom: 5px;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.categoryPill {
+  padding: 5px 15px;
+  background: #2a46eb;
+  border-radius: 20px;
+}
+
+.scamPill {
+  padding: 5px 15px;
+  background: #ff3a3e;
+  border-radius: 20px;
+}
+
+.categoryPillText {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+
+  color: #ffffff;
+}
+
+.scoreText {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+
+  color: #000000;
+}
+
+.reviewsText {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.reviewsSubtext {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: center;
+
+  color: #ff3a3e;
+}
+
+.reviewsContainer {
+  width: 100%;
+  align-items: flex-start !important;
+  gap: 1rem;
+}
+
+.reviewsHeader {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+
+  color: #000000;
+}
+
+.reviewsScorebarContainer {
+  align-items: flex-start !important;
+  gap: 1rem;
+}
+
+.categoryTitle {
+  width: 150px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.categoryScore {
+  padding-left: 0.5rem;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.scoreBarContainer {
+  position: relative;
+  width: 600px;
+  height: 10px;
+  background: rgba(217, 217, 217, 0.59);
+  border-radius: 10px;
+}
+
+.scoreBar {
+  position: absolute;
+  height: 100%;
+  background-color: #fecd27;
+  border-radius: 10px;
+}
+
+.filterLabel {
+  width: 80px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+
+  color: #000000;
+}
+
+.select {
+  width: 200px !important;
+}
+
+.filterContainer {
+  width: 100%;
+  justify-content: flex-start !important;
+}
+
+.reviewContainer {
+  width: 100%;
+  padding: 2rem;
+  background: #ffffff;
+  box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+  align-items: flex-start !important;
+}
+
+.leftReviewSection {
+  align-items: flex-start !important;
+  gap: 0 !important;
+  padding-right: 1rem;
+  width: 10rem;
+}
+
+.rightReviewSection {
+  width: 100%;
+  align-items: flex-start !important;
+}
+
+.rightTopSection {
+  width: 100%;
+  justify-content: space-between !important;
+}
+
+.reviewReviewer {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+
+  color: #000000;
+}
+
+.reviewScore {
+  margin-left: 6px !important;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.reviewDate {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+
+  color: #000000;
+}
+
+.reviewDescription {
+  width: 100%;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.largestar {
+  width: 35px;
+}
+
+.modalContent {
+  max-width: 800px !important;
+  border-radius: 25px !important;
+  padding: 1rem 0 1rem 0;
+}
+
+.modalHeader {
+  text-align: center;
+}
+
+.modalImage {
+  width: 69.74px !important;
+  height: 69.74px !important;
+  border-radius: 10px !important;
+}
+
+.modalTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 32px;
+
+  text-align: center;
+  color: #000000;
+}
+
+.modalAddress {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: center;
+
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.modalTitleSection {
+  align-items: flex-start !important;
+  padding-left: 0.5rem;
+}
+
+.trustScore {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+
+  color: #000000;
+}
+
+.modalTopSection {
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.subHeader {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+
+  color: #000000;
+}
+
+.yourReview {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+
+  color: #000000;
+}
+
+.modalFooter {
+  width: 100%;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.submitButton {
+  width: 188px !important;
+  height: 46px !important;
+  background: #8a8a8a !important;
+  color: white !important;
+  border-radius: 20px !important;
+}
+
+.starContainer {
+  width: 207px;
+  position: relative;
+}
+
+.goldStarContainer {
+  z-index: 1;
+  overflow: hidden;
+}
+
+.blankStarContainer {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: absolute;
+}
+
+.smallStarContainer {
+  width: 157px;
+  position: relative;
+}
