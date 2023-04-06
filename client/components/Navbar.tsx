@@ -2,6 +2,8 @@ import Link from "next/link";
 import styles from "@styles/Navbar.module.css";
 import { Box, Button, HStack, Image, Spinner, Text } from "@chakra-ui/react";
 import { useTron } from "./TronProvider";
+import { abridgeAddress } from "@utils/utils";
+import { handleConnect, handleDisconnect } from "@utils/web3";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
@@ -33,7 +35,9 @@ const Navbar = () => {
         {address ? (
           <Button
             className={styles.connectButton}
-            onClick={() => {}}
+            onClick={() =>
+              handleDisconnect(setLoading, setAddress, handleNavigate)
+            }
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
           >
@@ -42,13 +46,13 @@ const Navbar = () => {
             ) : isHover ? (
               "Disconnect"
             ) : (
-              address
+              abridgeAddress(address)
             )}
           </Button>
         ) : (
           <Button
             className={styles.connectButton}
-            onClick={() => {}}
+            onClick={() => handleConnect(setLoading, setAddress, provider)}
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
           >
