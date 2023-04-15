@@ -1,3 +1,8 @@
+export const TRUSTSIGHT_API_URL =
+  process.env.NEXT_PUBLIC_ENV === "prod"
+    ? process.env.NEXT_PUBLIC_API_PROD
+    : process.env.NEXT_PUBLIC_API_DEV;
+
 export function abridgeAddress(address?: string) {
   if (!address) return address;
   const l = address.length;

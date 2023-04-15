@@ -1,11 +1,13 @@
 import Link from "next/link";
 import styles from "@styles/Navbar.module.css";
 import { Box, Button, HStack, Image, Spinner, Text } from "@chakra-ui/react";
-import { useTron } from "./TronProvider";
-import { abridgeAddress } from "@utils/utils";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { handleConnect, handleDisconnect } from "@utils/web3";
-import { useState } from "react";
+import { HamburgerIcon } from "@chakra-ui/icons";
+import { abridgeAddress } from "@utils/utils";
+import { useTron } from "./TronProvider";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 const Navbar = () => {
   const router = useRouter();
@@ -59,6 +61,22 @@ const Navbar = () => {
             {isLoading ? <Spinner color="white" /> : "Connect TronLink"}
           </Button>
         )}
+        <Menu>
+          <MenuButton as={Button} variant="custom">
+            <HamburgerIcon />
+          </MenuButton>
+          <MenuList>
+            <Link href="/explore">
+              <MenuItem>Explore</MenuItem>
+            </Link>
+            <Link href="/feed">
+              <MenuItem>Feed</MenuItem>
+            </Link>
+            <Link href={`/address/${address}`}>
+              <MenuItem>My Profile</MenuItem>
+            </Link>
+          </MenuList>
+        </Menu>
       </HStack>
     </HStack>
   );
