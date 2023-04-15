@@ -598,7 +598,7 @@ export const featuredReviews = [
     reviewer: "TT7BkPRW4qdGrmDrkVgkZHqtKfHnX6kih9",
     recipient: "sTRX Finance",
     review:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+      "I've been using sTRX Finance for a while now and it's been a lifesaver! It's a fantastic platform with a great team behind it.",
   },
   {
     image: "/3.png",
@@ -606,14 +606,124 @@ export const featuredReviews = [
     reviewer: "TZ1SsapyhKNWaVLca6P2qgVzkHTdk6nkXa",
     recipient: "JustLend",
     review:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+      "JustLend's decentralized lending protocol has completely transformed my crypto lending experience. It's user-friendly, secure, and offers great returns!",
   },
   {
     image: "/4.png",
     stars: 5,
     reviewer: "TAuUCiH4JVNBZmDnEDZkXEUXDARdGpXTmX",
-    recipient: "APENFT",
+    recipient: "JustStables",
     review:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+      "JustStable is hands down the best stablecoin lending platform I've used. It has a fantastic interface, great support, and the smart contracts are as secure as they come. ",
+  },
+];
+
+export const projects = [
+  // https://www.sunswap.com/docs/sunswapV2-interfaces_en.pdf
+  {
+    title: "SunSwap",
+    image: "/sun.png",
+    score: 4.91,
+    address: "TKzxdSv2FZKQrEqkKVgp5DcwEXBEKMg2Ax", // router contract
+    reviews: 27,
+    category: "defi",
+  },
+  // https://portal.justlend.org/docs/justlend_api_en.pdf
+  {
+    title: "JustLend",
+    image: "/justlend.png",
+    score: 4.92,
+    address: "TGjYzgCyPobsNS9n6WcbdLVR9dH7mWqFx7", // Unitroller
+    reviews: 17,
+    category: "defi",
+  },
+  {
+    title: "JustStable",
+    image: "/juststables.png",
+    score: 4.83,
+    address: "TCBLTVx7dJWcFBBNE7e3QEPHXEtigsbpth", // CDP Sai Proxy
+    reviews: 9,
+    category: "defi",
+  },
+  // https://docs.strx.finance/smart-contracts
+  {
+    title: "sTRX Finance",
+    image: "/strx.png",
+    score: 4.87,
+    address: "TGrdCu9fu8csFmQptVE25fDzFmPU9epamH", // staking pool address
+    reviews: 21,
+    category: "defi",
+  },
+  {
+    title: "Transit Swap",
+    image: "/defi/1inch.png",
+    score: 4.92,
+    address: "0x1111111254fb6c44bAC0beD2854e76F90643097d",
+    reviews: 29,
+    category: "defi",
+  },
+  {
+    title: "Bitkeep Swap",
+    image: "/defi/bitkeep.png",
+    score: 4.79,
+    address: "0xD1ca1F4dBB645710f5D5a9917AA984a47524f49A",
+    reviews: 9,
+    category: "defi",
+  },
+  {
+    title: "JustMoney Swap",
+    image: "/defi/stargate.jpg",
+    score: 4.83,
+    address: "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
+    reviews: 21,
+    category: "defi",
+  },
+  {
+    title: "SocialSwap.io",
+    image: "/defi/apeswap.png",
+    score: 4.82,
+    address: "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
+    reviews: 2048,
+    category: "defi",
+  },
+  {
+    title: "Tron Nina Staking",
+    image: "/defi/autoshark.png",
+    score: 4.96,
+    address: "0x1111111254fb6c44bAC0beD2854e76F90643097d",
+    reviews: 29,
+    category: "defi",
+  },
+  {
+    title: "APENFT",
+    image: "/defi/biswap.png",
+    score: 4.82,
+    address: "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
+    reviews: 27,
+    category: "nft",
+  },
+  {
+    title: "Tron Cool Cats",
+    image: "/defi/bungee.png",
+    score: 4.82,
+    address: "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
+    reviews: 11,
+    category: "nft",
+  },
+  {
+    title: "Bored Ape Tron Club",
+    image: "/defi/dexview.png",
+    score: 4.96,
+    address: "0x1111111254fb6c44bAC0beD2854e76F90643097d",
+    reviews: 29,
+    category: "nft",
+  },
+  {
+    title: "T-Rex Punks",
+    image: "/nft/opensea.png",
+    score: 4.78,
+    address: "0x4a364f8c717cAAD9A442737Eb7b8A55cc6cf18D8",
+    reviews: 48,
+    category: "nft",
   },
 ];

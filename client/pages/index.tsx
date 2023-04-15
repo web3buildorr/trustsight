@@ -1,15 +1,12 @@
 import { Search2Icon } from "@chakra-ui/icons";
-import {
-  HStack,
-  VStack,
-  Text,
-  Input,
-  Image,
-  Box,
-  useToast,
-} from "@chakra-ui/react";
-import { categories, featuredProjects, featuredReviews } from "@data/data";
+import { HStack, VStack, Text, Input, Image, Box } from "@chakra-ui/react";
+import { categories, projects, featuredReviews } from "@data/data";
 import styles from "@styles/Home.module.css";
+import {
+  abridgeAddress,
+  abridgeCharacters,
+  isValidTronAddress,
+} from "@utils/utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -17,7 +14,6 @@ function Home() {
   const router = useRouter();
   const [selected, setSelected] = useState("DeFi");
   const isNavbar = false;
-  const toast = useToast();
   const [inputValue, setInputValue] = useState("");
 
   function handleInputChange(e: any) {
@@ -43,7 +39,7 @@ function Home() {
           <form onSubmit={handleNavigation} style={{ width: "100%" }}>
             <Input
               className={styles.searchInput}
-              placeholder="Search account or contract by address"
+              placeholder="Search by address or ENS"
               onSubmit={handleNavigation}
               onChange={handleInputChange}
             ></Input>
@@ -55,7 +51,12 @@ function Home() {
         <Text className={styles.header} w="100%">
           Explore Projects
         </Text>
-        <HStack w="100%" justifyContent="space-between">
+        <HStack
+          w="100%"
+          justifyContent="space-between"
+          paddingTop=".5rem"
+          paddingBottom=".5rem"
+        >
           {categories.map((value, idx) => (
             <Text
               key={idx}
@@ -74,8 +75,10 @@ function Home() {
           ))}
         </HStack>
         <HStack className={styles.carousel}>
-          {featuredProjects.map(
-            ({ title, image, score, address, reviews }, idx) => (
+          {projects
+            .filter((p) => p.category === selected.toLocaleLowerCase())
+            .slice(0, 4)
+            .map(({ title, image, score, address, reviews }, idx) => (
               <VStack
                 key={idx}
                 className={styles.projectCard}
@@ -85,7 +88,9 @@ function Home() {
                 <Image src={image} alt="yo" className={styles.projectImage} />
                 <VStack w="100%" pt=".3rem">
                   <HStack className={styles.projectTextContainer}>
-                    <Text className={styles.projectTitle}>{title}</Text>
+                    <Text className={styles.projectTitle}>
+                      {abridgeCharacters(title, 16)}
+                    </Text>
                     <HStack>
                       <Image
                         src="/blackstar.png"
@@ -96,13 +101,14 @@ function Home() {
                     </HStack>
                   </HStack>
                   <HStack className={styles.projectTextContainer}>
-                    <Text className={styles.projectSubtitle}>{address}</Text>
+                    <Text className={styles.projectSubtitle}>
+                      {abridgeAddress(address)}
+                    </Text>
                     <Text className={styles.projectSubtitle}>({reviews})</Text>
                   </HStack>
                 </VStack>
               </VStack>
-            )
-          )}
+            ))}
         </HStack>
       </VStack>
       <Box h="60px" />
@@ -134,7 +140,7 @@ function Home() {
                   ))}
                 </HStack>
                 <Text className={styles.bold}>
-                  {reviewer}{" "}
+                  {abridgeAddress(reviewer)}{" "}
                   <span className={styles.specialWord2}>reviewed</span>{" "}
                   {recipient}
                 </Text>
@@ -144,7 +150,7 @@ function Home() {
           )}
         </HStack>
       </VStack>
-      <Box h="40px" />
+      <Box h="4rem" />
       <Text className={styles.bold}>Built with ❤️ at HackaTRON Season 4</Text>
     </main>
   );

@@ -1,7 +1,15 @@
-export function abridgeAddress(address?: string, chars = 6) {
+export function abridgeAddress(address?: string) {
   if (!address) return address;
   const l = address.length;
-  return `${address.substring(0, chars)}...${address.substring(l - chars, l)}`;
+  if (l < 20) return address;
+  return `${address.substring(0, 6)}...${address.substring(l - 4, l)}`;
+}
+
+export function abridgeCharacters(address?: string, char?: number) {
+  if (!address) return address;
+  const l = address.length;
+  if (l <= char) return address;
+  return `${address.substring(0, char)}...`;
 }
 
 export function capitalizeFirstLetter(string: string) {
