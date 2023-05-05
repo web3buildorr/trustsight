@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import express, { Request, Response, Express } from "express";
 import { MongoClient, ServerApiVersion } from "mongodb";
+import { projects } from "./data";
 
 dotenv.config();
 
@@ -131,6 +132,165 @@ app.get("/api/reviews/:address", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("Error while fetching reviews:", error);
+    res.status(500).send("An error occurred");
+  }
+});
+
+app.get("/api/reviews", async (req: Request, res: Response) => {
+  try {
+    await client.connect();
+
+    const reviewsCollection = await client
+      .db("trustsight")
+      .collection("reviews");
+
+    const reviews = await reviewsCollection
+      .find()
+      .sort({ createdAt: -1 })
+      .toArray();
+
+    res.status(200).send(reviews);
+  } catch (error) {
+    console.error("Error while fetching reviews:", error);
+    res.status(500).send("An error occurred");
+  }
+});
+
+app.put("/api/reviews", async (req: Request, res: Response) => {
+  const { _id, likes, newLike, newComment } = req.body;
+  try {
+    await client.connect();
+
+    const reviewsCollection = await client
+      .db("trustsight")
+      .collection("reviews");
+
+    if (newLike) {
+      await reviewsCollection.updateOne(
+        { _id: _id as any },
+        {
+          $set: {
+            likes: { [newLike]: true },
+          },
+        },
+        { upsert: true }
+      );
+    }
+
+    if (newComment) {
+      await reviewsCollection.updateOne(
+        { _id: _id as any },
+        {
+          $set: {
+            comments: { [newComment.commenter]: newComment },
+          },
+        },
+        { upsert: true }
+      );
+    }
+
+    res.status(200).send();
+  } catch (error) {
+    console.error("Error while caching review:", error);
+    res.status(500).send("An error occurred");
+  }
+});
+
+app.get("/api/projects/:category", async (req: Request, res: Response) => {
+  const { category } = req.params;
+  try {
+    const filteredProjects = projects.filter((p) => p.category === category);
+
+    res.status(200).send(filteredProjects);
+  } catch (error) {
+    console.error("Error while processing request:", error);
+    res.status(500).send("An error occurred while communicating with GPT-4.");
+  }
+});
+
+app.post("/api/reviews", async (req: Request, res: Response) => {
+  const { review } = req.body;
+  const { reviewer, reviewee } = review;
+  try {
+    await client.connect();
+
+    const reviewsCollection = await client
+      .db("trustsight")
+      .collection("reviews");
+
+    await reviewsCollection.updateOne(
+      { _id: `${reviewer}:${reviewee}` as any },
+      { $set: review },
+      { upsert: true }
+    );
+
+    res.status(200).send();
+  } catch (error) {
+    console.error("Error while caching review:", error);
+    res.status(500).send("An error occurred");
+  }
+});
+
+app.post("/api/address", async (req: Request, res: Response) => {
+  const { address, username, image, newFollow } = req.body;
+
+  try {
+    await client.connect();
+
+    const addressesCollection = await client
+      .db("trustsight")
+      .collection("addresses");
+
+    if (username) {
+      await addressesCollection.updateOne(
+        { _id: address as any },
+        {
+          $set: {
+            address,
+            username,
+          },
+        },
+        { upsert: true }
+      );
+    }
+
+    if (image) {
+      await addressesCollection.updateOne(
+        { _id: address as any },
+        {
+          $set: {
+            address,
+            image,
+          },
+        },
+        { upsert: true }
+      );
+    }
+
+    if (newFollow) {
+      await addressesCollection.updateOne(
+        { _id: address as any },
+        {
+          $set: {
+            [`following.${newFollow}`]: true,
+          },
+        },
+        { upsert: true }
+      );
+      await addressesCollection.updateOne(
+        { _id: newFollow as any },
+        {
+          $set: {
+            [`followers.${address}`]: true,
+          },
+        },
+        { upsert: true }
+      );
+    }
+
+    res.status(200).send();
+  } catch (error) {
+    console.error("Error while caching review:", error);
     res.status(500).send("An error occurred");
   }
 });
