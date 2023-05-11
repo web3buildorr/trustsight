@@ -106,9 +106,7 @@ app.get("/api/reviews/:address", async (req: Request, res: Response) => {
   try {
     await client.connect();
 
-    const reviewsCollection = await client
-      .db("trustsight")
-      .collection("reviews");
+    const reviewsCollection = await client.db(MONGO_DB).collection("reviews");
 
     const reviews = await reviewsCollection
       .find({
@@ -140,9 +138,7 @@ app.get("/api/reviews", async (req: Request, res: Response) => {
   try {
     await client.connect();
 
-    const reviewsCollection = await client
-      .db("trustsight")
-      .collection("reviews");
+    const reviewsCollection = await client.db(MONGO_DB).collection("reviews");
 
     const reviews = await reviewsCollection
       .find()
@@ -161,9 +157,7 @@ app.put("/api/reviews", async (req: Request, res: Response) => {
   try {
     await client.connect();
 
-    const reviewsCollection = await client
-      .db("trustsight")
-      .collection("reviews");
+    const reviewsCollection = await client.db(MONGO_DB).collection("reviews");
 
     if (newLike) {
       await reviewsCollection.updateOne(
@@ -214,9 +208,7 @@ app.post("/api/reviews", async (req: Request, res: Response) => {
   try {
     await client.connect();
 
-    const reviewsCollection = await client
-      .db("trustsight")
-      .collection("reviews");
+    const reviewsCollection = await client.db(MONGO_DB).collection("reviews");
 
     await reviewsCollection.updateOne(
       { _id: `${reviewer}:${reviewee}` as any },
@@ -238,7 +230,7 @@ app.post("/api/address", async (req: Request, res: Response) => {
     await client.connect();
 
     const addressesCollection = await client
-      .db("trustsight")
+      .db(MONGO_DB)
       .collection("addresses");
 
     if (username) {
