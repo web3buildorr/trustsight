@@ -74,6 +74,44 @@ app.get("/api/address/:address", async (req: Request, res: Response) => {
   }
 });
 
+app.get(
+  "/api/reviews/following/:address",
+  async (req: Request, res: Response) => {
+    const { address } = req.params;
+
+    try {
+      await client.connect();
+
+      const addressesCollection = await client
+        .db(MONGO_DB)
+        .collection("addresses");
+
+      const metadata = await addressesCollection.findOne({
+        _id: address as any,
+      });
+
+      // array of addresses the addresss is following
+      const following = metadata ? Object.keys(metadata.following) : [];
+
+      const reviewsCollection = await client.db(MONGO_DB).collection("reviews");
+
+      const reviewsAboutFollowing = await reviewsCollection
+        .find({
+          $or: [
+            { reviewee: { $in: following } },
+            { reviewer: { $in: following } },
+          ],
+        })
+        .toArray();
+
+      res.status(200).send(reviewsAboutFollowing);
+    } catch (error) {
+      console.error("Error while fetching reviews:", error);
+      res.status(500).send("An error occurred");
+    }
+  }
+);
+
 type Review = Record<string, any>;
 
 function computeAverage(reviews: Review[]): Review {
