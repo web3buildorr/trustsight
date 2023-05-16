@@ -5,6 +5,8 @@ import Jdenticon from "react-jdenticon";
 import axios from "axios";
 import { Web3Storage } from "web3.storage";
 import { TRUSTSIGHT_API_URL } from "@utils/utils";
+import { useTron } from "./TronProvider";
+import { handleConnect } from "@utils/web3";
 
 const WEB3_STORAGE_TOKEN = process.env.NEXT_PUBLIC_WEB3_STORAGE_API_KEY;
 
@@ -28,8 +30,10 @@ function ProfileSection({
   fetchMetadata,
   onOpen,
 }: ProfileSectionProps) {
+  const { setAddress, provider } = useTron();
   const [uploadedFile, setUploadedFile] = useState<any>();
   const [isEditingImage, setIsEditingImage] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
   async function handleSaveImage() {
     if (!uploadedFile) {
@@ -60,12 +64,14 @@ function ProfileSection({
   }
 
   const handleReview = () => {
-    // if (!account) {
-    //   openConnectModal();
-    // } else {
-    onOpen();
-    // }
+    if (!account) {
+      handleConnect(setLoading, setAddress, provider);
+    } else {
+      onOpen();
+    }
   };
+
+  const isProfileOwner = address === account;
 
   return (
     <VStack className={styles.stickySection}>
@@ -106,19 +112,21 @@ function ProfileSection({
           </VStack>
         ))}
       <Box h="10px"></Box>
-      <VStack onClick={handleReview} cursor="pointer">
-        <HStack>
-          {new Array(5).fill(0).map((_, idx) => (
-            <Image
-              src="/blankstar.png"
-              alt="yo"
-              key={idx}
-              className={styles.largestar}
-            />
-          ))}
-        </HStack>
-        <Text>Review this address</Text>
-      </VStack>
+      {!isProfileOwner && (
+        <VStack onClick={handleReview} cursor="pointer">
+          <HStack>
+            {new Array(5).fill(0).map((_, idx) => (
+              <Image
+                src="/blankstar.png"
+                alt="yo"
+                key={idx}
+                className={styles.largestar}
+              />
+            ))}
+          </HStack>
+          <Text>Review this address</Text>
+        </VStack>
+      )}
     </VStack>
   );
 }

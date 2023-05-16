@@ -28,6 +28,7 @@ const theme = extendTheme({
     global: {
       "*": {
         fontFamily: "Plus Jakarta Sans",
+        color: "black",
       },
       a: {
         _hover: {

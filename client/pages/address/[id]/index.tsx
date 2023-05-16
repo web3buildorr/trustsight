@@ -26,6 +26,7 @@ import ReviewModal from "@components/ReviewModal";
 import axios from "axios";
 import StarRating from "@components/StarRating";
 import ReviewsSection from "@components/ReviewsSection";
+import { Metadata, Scores } from "@utils/types";
 
 const WEB3_STORAGE_TOKEN = process.env.NEXT_PUBLIC_WEB3_STORAGE_API_KEY;
 
@@ -36,10 +37,10 @@ const client = new Web3Storage({
 
 function Address() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [metadata, setMetadata] = useState<any | undefined>();
+  const [metadata, setMetadata] = useState<Metadata | undefined>();
   const [givenReviews, setGivenReviews] = useState<any[]>([]);
   const [receivedReviews, setReceivedReviews] = useState<any[]>([]);
-  const [scores, setScores] = useState<any | undefined>();
+  const [scores, setScores] = useState<Scores | undefined>();
   const [isLoading, setLoading] = useState<boolean>(false);
   const [isEditingName, setIsEditingName] = useState<boolean>(false);
 
@@ -121,12 +122,13 @@ function Address() {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
+  useEffect(() => {
     fetchMetadata();
     fetchReviews();
-
-    return () => clearTimeout(timer);
-  }, [address, fetchMetadata, fetchReviews]);
+  }, [fetchMetadata, fetchReviews]);
 
   if (!metadata || !scores || isLoading)
     return (
@@ -201,25 +203,27 @@ function Address() {
               </HStack>
               <HStack>
                 <VStack>
-                  <VStack pt="2rem">
-                    {followers && followers[account] ? (
-                      <Button w="150px" isDisabled>
-                        Following
-                      </Button>
-                    ) : (
-                      <Button w="150px" onClick={handleFollow}>
-                        Follow
-                      </Button>
-                    )}
-                    <HStack cursor="pointer" className={styles.reportButton}>
-                      <VStack opacity={0.4}>
-                        <FaFlag />
-                      </VStack>
-                      <Text className={styles.reportText}>
-                        Report this address
-                      </Text>
-                    </HStack>
-                  </VStack>
+                  {!isProfileOwner && (
+                    <VStack>
+                      {followers && followers[account] ? (
+                        <Button w="150px" isDisabled>
+                          Following
+                        </Button>
+                      ) : (
+                        <Button w="150px" onClick={handleFollow}>
+                          Follow
+                        </Button>
+                      )}
+                      <HStack cursor="pointer" className={styles.reportButton}>
+                        <VStack opacity={0.4}>
+                          <FaFlag />
+                        </VStack>
+                        <Text className={styles.reportText}>
+                          Report this address
+                        </Text>
+                      </HStack>
+                    </VStack>
+                  )}
                   {flags && (
                     <Text className={styles.reviewsSubtext}>
                       Reported by {flags} users

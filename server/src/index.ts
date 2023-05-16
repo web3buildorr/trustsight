@@ -36,8 +36,6 @@ const client = new MongoClient(uri, {
 app.get("/api/address/:address", async (req: Request, res: Response) => {
   const { address } = req.params;
 
-  console.log("request received for: ", address);
-
   try {
     await client.connect();
 

@@ -72,29 +72,6 @@ function ReviewModal({
     trust: { reviewee: "", key: "", val: 0 },
   });
 
-  async function cacheReview(txn: string) {
-    let cachedReview: CachedReview = {
-      reviewer: account,
-      reviewee: reviewMap.trust.reviewee,
-      comment,
-      transaction: txn,
-    };
-
-    for (let category in reviewMap) {
-      cachedReview[category] = reviewMap[category].val;
-    }
-
-    try {
-      const response = await axios.post(`${TRUSTSIGHT_API_URL}/api/reviews`, {
-        review: cachedReview,
-      });
-
-      console.log(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   function handleSetScore(score: number, type: string) {
     const reviewDeepCopy = JSON.parse(JSON.stringify(reviewMap));
 
@@ -110,36 +87,6 @@ function ReviewModal({
   function handleSetComment(e) {
     setComment(e.target.value);
   }
-
-  // initialize reviewMap
-  useEffect(() => {
-    if (!address || !subscores) return;
-
-    const reviewDeepCopy = JSON.parse(JSON.stringify(reviewMap));
-
-    const trustKey = `trustsight.trust`;
-
-    const review = {
-      reviewee: address,
-      key: trustKey,
-      val: 0,
-    };
-
-    reviewDeepCopy["trust"] = review;
-
-    subscores.forEach((subscore) => {
-      const reviewKey = `trustsight.${category.toLowerCase()}.${subscore}`;
-
-      const review = {
-        reviewee: address,
-        key: reviewKey,
-        val: 0,
-      };
-
-      reviewDeepCopy[subscore] = review;
-    });
-    setReviewMap(reviewDeepCopy);
-  }, [address, category, reviewMap, subscores]);
 
   const isSuccess = false;
   const isTxnLoading = false;
