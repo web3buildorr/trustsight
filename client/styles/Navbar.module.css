@@ -15,3 +15,7 @@
 .navLeftSection {
   gap: 1rem;
 }
+
+.connectButton {
+  width: 160px;
+}

@@ -2,7 +2,11 @@ import { HStack, VStack, Text, Image, Box, SimpleGrid } from "@chakra-ui/react";
 import withTransition from "@components/withTransition";
 import { categories, projects } from "@data/data";
 import styles from "@styles/Home.module.css";
-import { abridgeAddress, TRUSTSIGHT_API_URL } from "@utils/utils";
+import {
+  abridgeAddress,
+  abridgeCharacters,
+  TRUSTSIGHT_API_URL,
+} from "@utils/utils";
 import { useCallback, useEffect, useState } from "react";
 
 function Explore() {
@@ -45,18 +49,20 @@ function Explore() {
         </HStack>
         <Box h="10px" />
 
-        {projects.length === 0 ? (
+        {dapps.length === 0 ? (
           <VStack>
             <Text>No dapps in this category yet.</Text>
           </VStack>
         ) : (
           <SimpleGrid columns={4} gap={10}>
-            {projects.map(({ title, image, score, address, reviews }, idx) => (
+            {dapps.map(({ title, image, score, address, reviews }, idx) => (
               <VStack key={idx} className={styles.projectCard}>
                 <Image src={image} alt="yo" className={styles.projectImage} />
                 <VStack w="100%" pt=".3rem">
                   <HStack className={styles.projectTextContainer}>
-                    <Text className={styles.projectTitle}>{title}</Text>
+                    <Text className={styles.projectTitle}>
+                      {abridgeCharacters(title, 14)}
+                    </Text>
                     <HStack>
                       <Image
                         src="/blackstar.png"

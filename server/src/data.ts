@@ -727,7 +727,7 @@ export const projects = [
   },
   {
     title: "Transit Swap",
-    image: "/defi/1inch.png",
+    image: "/defi/transit.jpg",
     score: 4.92,
     address: "TKzxdSv2FZKQrEqkKVgp5DcwEXBEKMg2Ax",
     reviews: 29,
@@ -743,7 +743,7 @@ export const projects = [
   },
   {
     title: "JustMoney Swap",
-    image: "/defi/stargate.jpg",
+    image: "/defi/justmoney.jpg",
     score: 4.83,
     address: "TCBLTVx7dJWcFBBNE7e3QEPHXEtigsbpth",
     reviews: 21,
@@ -751,15 +751,15 @@ export const projects = [
   },
   {
     title: "SocialSwap.io",
-    image: "/defi/apeswap.png",
+    image: "/defi/socialswap.png",
     score: 4.82,
     address: "TGrdCu9fu8csFmQptVE25fDzFmPU9epamH",
     reviews: 2048,
     category: "defi",
   },
   {
-    title: "Tron Nina Staking",
-    image: "/defi/autoshark.png",
+    title: "Tron Ninja Staking",
+    image: "/defi/tronninja.png",
     score: 4.96,
     address: "TKzxdSv2FZKQrEqkKVgp5DcwEXBEKMg2Ax",
     reviews: 29,
@@ -767,7 +767,7 @@ export const projects = [
   },
   {
     title: "APENFT",
-    image: "/defi/biswap.png",
+    image: "/defi/apenft.png",
     score: 4.82,
     address: "TGjYzgCyPobsNS9n6WcbdLVR9dH7mWqFx7",
     reviews: 27,
@@ -775,7 +775,7 @@ export const projects = [
   },
   {
     title: "Tron Cool Cats",
-    image: "/defi/bungee.png",
+    image: "/nft/coolcats.png",
     score: 4.82,
     address: "TCBLTVx7dJWcFBBNE7e3QEPHXEtigsbpth",
     reviews: 11,
@@ -783,7 +783,7 @@ export const projects = [
   },
   {
     title: "Bored Ape Tron Club",
-    image: "/defi/dexview.png",
+    image: "/nft/batc.jpg",
     score: 4.96,
     address: "TGrdCu9fu8csFmQptVE25fDzFmPU9epamH",
     reviews: 29,
@@ -791,7 +791,7 @@ export const projects = [
   },
   {
     title: "T-Rex Punks",
-    image: "/nft/opensea.png",
+    image: "/nft/trex.jpg",
     score: 4.78,
     address: "TKzxdSv2FZKQrEqkKVgp5DcwEXBEKMg2Ax",
     reviews: 48,

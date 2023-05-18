@@ -1,3 +1,5 @@
+import { ethers } from "ethers";
+
 export const TRUSTSIGHT_API_URL =
   process.env.NEXT_PUBLIC_ENV === "prod"
     ? process.env.NEXT_PUBLIC_API_PROD
@@ -24,6 +26,13 @@ export function capitalizeFirstLetter(string: string) {
 function isBase58String(value: string): boolean {
   const base58Regex = /^[1-9A-HJ-NP-Za-km-z]+$/;
   return base58Regex.test(value);
+}
+
+export function encodeRawKey(rawKey: string) {
+  if (rawKey.length < 32) return ethers.utils.formatBytes32String(rawKey);
+
+  const hash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(rawKey));
+  return hash.slice(0, 64) + "ff";
 }
 
 export function isValidTronAddress(address: string): boolean {

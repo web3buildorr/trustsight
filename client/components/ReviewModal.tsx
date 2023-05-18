@@ -23,6 +23,7 @@ import Jdenticon from "react-jdenticon";
 import {
   abridgeAddress,
   capitalizeFirstLetter,
+  encodeRawKey,
   TRUSTSIGHT_API_URL,
 } from "@utils/utils";
 import { useEffect, useState } from "react";
@@ -40,7 +41,7 @@ const client = new Web3Storage({
 
 type CachedReview = {
   reviewee: string;
-  [key: string]: string | number;
+  [key: string]: string | number | object;
 };
 
 type Props = {
@@ -72,8 +73,58 @@ function ReviewModal({
     trust: { reviewee: "", key: "", val: 0 },
   });
 
+  async function cacheReview(txn?: string) {
+    let cachedReview: CachedReview = {
+      reviewer: account,
+      reviewee: reviewMap.trust.reviewee,
+      comment,
+      transaction: txn,
+    };
+
+    for (let category in reviewMap) {
+      cachedReview[category] = reviewMap[category].val;
+    }
+
+    cachedReview.createdAt = Date.now();
+    cachedReview.likes = {};
+    cachedReview.comments = {};
+
+    try {
+      const response = await axios.post(`${TRUSTSIGHT_API_URL}/api/reviews`, {
+        review: cachedReview,
+      });
+
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function createReview() {
+    if (comment) {
+      // const newReviewMap = await attachComment();
+
+      // const ethersRegistryContract = new ethers.Contract(
+      //   REGISTRY,
+      //   registryContract.abi,
+      //   signer
+      // );
+
+      // const txn = await ethersRegistryContract.createReview(
+      //   Object.values(newReviewMap)
+      // );
+      // setTxnHash(txn);
+      await cacheReview();
+    } else {
+      // write?.();
+      await cacheReview();
+    }
+  }
+
   function handleSetScore(score: number, type: string) {
     const reviewDeepCopy = JSON.parse(JSON.stringify(reviewMap));
+
+    console.log(reviewDeepCopy);
 
     if (score === reviewDeepCopy[type]["val"]) {
       reviewDeepCopy[type]["val"] = 0;
@@ -91,6 +142,38 @@ function ReviewModal({
   const isSuccess = false;
   const isTxnLoading = false;
   const data = { hash: "" };
+
+  // initialize reviewMap
+  useEffect(() => {
+    if (!address || !subscores) return;
+
+    const reviewDeepCopy = JSON.parse(JSON.stringify(reviewMap));
+
+    const trustKey = encodeRawKey(`trustsight.trust`);
+
+    const review = {
+      reviewee: address,
+      key: trustKey,
+      val: 0,
+    };
+
+    reviewDeepCopy["trust"] = review;
+
+    subscores.forEach((subscore) => {
+      const reviewKey = encodeRawKey(
+        `trustsight.${category.toLowerCase()}.${subscore}`
+      );
+
+      const review = {
+        reviewee: address,
+        key: reviewKey,
+        val: 0,
+      };
+
+      reviewDeepCopy[subscore] = review;
+    });
+    setReviewMap(reviewDeepCopy);
+  }, [address, category, subscores]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -248,7 +331,7 @@ function ReviewModal({
               <Button className={styles.submitButton}>View Transaction</Button>
             </ChakraLink>
           ) : (
-            <Button className={styles.submitButton} onClick={() => {}}>
+            <Button className={styles.submitButton} onClick={createReview}>
               {isTxnLoading ? <Spinner color="white" /> : "Submit Review"}
             </Button>
           )}

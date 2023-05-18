@@ -30,10 +30,6 @@ const Navbar = () => {
         ></Image>
       </Link>
       <HStack className={styles.navLeftSection}>
-        <Link href="/profile">
-          <Text cursor="pointer">My Profile</Text>
-        </Link>
-        <Box></Box>
         {address ? (
           <Button
             className={styles.connectButton}

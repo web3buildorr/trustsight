@@ -278,11 +278,11 @@ function Address() {
                     <Box className={styles.scoreBarContainer}>
                       <Box
                         className={styles.scoreBar}
-                        width={scores[val] / 5}
+                        width={scores[val] ? scores[val] / 5 : 0}
                       ></Box>
                     </Box>
                     <Text className={styles.categoryScore}>
-                      {scores[val].toFixed(2)}
+                      {scores[val] ? scores[val].toFixed(2) : "0.00"}
                     </Text>
                   </HStack>
                 ))}

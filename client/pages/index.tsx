@@ -39,7 +39,7 @@ function Home() {
           <form onSubmit={handleNavigation} style={{ width: "100%" }}>
             <Input
               className={styles.searchInput}
-              placeholder="Search by address or ENS"
+              placeholder="Search by address"
               onSubmit={handleNavigation}
               onChange={handleInputChange}
             ></Input>
