@@ -23,14 +23,16 @@ import Jdenticon from "react-jdenticon";
 import {
   abridgeAddress,
   capitalizeFirstLetter,
-  encodeRawKey,
+  encodeStringAsBytes,
+  encodeStringAsBytes32,
   TRUSTSIGHT_API_URL,
 } from "@utils/utils";
 import { useEffect, useState } from "react";
 import { Web3Storage } from "web3.storage";
 import axios from "axios";
+import { Review } from "@utils/types";
 
-const REGISTRY = "TTbxStTcs7Zf7yC3tfzAPx9cbpvtyC477f";
+const TRUSTSCORE_REGISTRY_ADDRESS = "TTbxStTcs7Zf7yC3tfzAPx9cbpvtyC477f";
 
 const WEB3_STORAGE_TOKEN = process.env.NEXT_PUBLIC_WEB3_STORAGE_API_KEY;
 
@@ -69,6 +71,7 @@ function ReviewModal({
 }: Props) {
   const [comment, setComment] = useState("");
   const [txnHash, setTxnHash] = useState<string>("");
+  const [isTxnLoading, setTxnLoading] = useState(false);
   const [reviewMap, setReviewMap] = useState({
     trust: { reviewee: "", key: "", val: 0 },
   });
@@ -98,33 +101,71 @@ function ReviewModal({
     } catch (err) {
       console.error(err);
     }
+    setTxnLoading(false);
+  }
+
+  async function uploadComment() {
+    const blob = new Blob(
+      [
+        JSON.stringify({
+          comment,
+        }),
+      ],
+      {
+        type: "application/json",
+      }
+    );
+
+    const files = [new File([blob], "comment.json")];
+    const jsonCID = await client.put(files);
+    const commentURL = `https://${jsonCID}.ipfs.w3s.link/comment.json`;
+    console.log(`uploaded comment URL: ${commentURL}`);
+
+    return commentURL;
+  }
+
+  async function attachComment() {
+    const commentURL = await uploadComment();
+
+    const review = {
+      reviewee: address,
+      key: "trustsight.comment",
+      val: commentURL,
+    };
+
+    const reviewDeepCopy = JSON.parse(JSON.stringify(reviewMap));
+    reviewDeepCopy["comment"] = review;
+    return reviewDeepCopy;
   }
 
   async function createReview() {
+    setTxnLoading(true);
+    const trustscoreRegistryContract = await window.tronWeb
+      .contract()
+      .at(TRUSTSCORE_REGISTRY_ADDRESS);
+
+    let reviews: Review[] = Object.values(reviewMap);
+
     if (comment) {
-      // const newReviewMap = await attachComment();
-
-      // const ethersRegistryContract = new ethers.Contract(
-      //   REGISTRY,
-      //   registryContract.abi,
-      //   signer
-      // );
-
-      // const txn = await ethersRegistryContract.createReview(
-      //   Object.values(newReviewMap)
-      // );
-      // setTxnHash(txn);
-      await cacheReview();
-    } else {
-      // write?.();
-      await cacheReview();
+      const newReviewMap = await attachComment();
+      reviews = Object.values(newReviewMap);
     }
+
+    const reviewees = reviews.map((review) => review.reviewee);
+    const keys = reviews.map((review) => encodeStringAsBytes32(review.key));
+    const values = reviews.map((review) => encodeStringAsBytes(review.val));
+
+    const txn = await trustscoreRegistryContract
+      .createReview(reviewees, keys, values)
+      .send();
+
+    setTxnHash(txn);
+
+    await cacheReview(txn);
   }
 
   function handleSetScore(score: number, type: string) {
     const reviewDeepCopy = JSON.parse(JSON.stringify(reviewMap));
-
-    console.log(reviewDeepCopy);
 
     if (score === reviewDeepCopy[type]["val"]) {
       reviewDeepCopy[type]["val"] = 0;
@@ -139,17 +180,12 @@ function ReviewModal({
     setComment(e.target.value);
   }
 
-  const isSuccess = false;
-  const isTxnLoading = false;
-  const data = { hash: "" };
-
-  // initialize reviewMap
   useEffect(() => {
     if (!address || !subscores) return;
 
     const reviewDeepCopy = JSON.parse(JSON.stringify(reviewMap));
 
-    const trustKey = encodeRawKey(`trustsight.trust`);
+    const trustKey = "trustsight.trust";
 
     const review = {
       reviewee: address,
@@ -160,9 +196,7 @@ function ReviewModal({
     reviewDeepCopy["trust"] = review;
 
     subscores.forEach((subscore) => {
-      const reviewKey = encodeRawKey(
-        `trustsight.${category.toLowerCase()}.${subscore}`
-      );
+      const reviewKey = `trustsight.${category}.${subscore}`;
 
       const review = {
         reviewee: address,
@@ -183,7 +217,7 @@ function ReviewModal({
           <Text className={styles.yourReview}>Your Review</Text>
         </ModalHeader>
         <ModalCloseButton />
-        {(isSuccess && data) || txnHash ? (
+        {txnHash ? (
           <VStack className={styles.lottieContainer}>
             <SuccessLottie />
             <Text className={styles.subHeader} pb="1rem">
@@ -321,12 +355,10 @@ function ReviewModal({
           </ModalBody>
         )}
         <ModalFooter className={styles.modalFooter}>
-          {(isSuccess && data) || txnHash ? (
+          {txnHash ? (
             <ChakraLink
               isExternal
-              href={`https://nile.tronscan.org/#/transaction/${
-                txnHash === "" ? data.hash : txnHash
-              }`}
+              href={`https://nile.tronscan.org/#/transaction/${txnHash}`}
             >
               <Button className={styles.submitButton}>View Transaction</Button>
             </ChakraLink>

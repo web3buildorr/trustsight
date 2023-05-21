@@ -8,6 +8,12 @@ import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
 import Navbar from "@components/Navbar";
 import { TronProvider } from "@components/TronProvider";
 
+declare global {
+  interface Window {
+    tronWeb: any;
+  }
+}
+
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(selectAnatomy.keys);
 

@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import TronWeb from "tronweb";
 
 export const TRUSTSIGHT_API_URL =
   process.env.NEXT_PUBLIC_ENV === "prod"
@@ -28,13 +29,6 @@ function isBase58String(value: string): boolean {
   return base58Regex.test(value);
 }
 
-export function encodeRawKey(rawKey: string) {
-  if (rawKey.length < 32) return ethers.utils.formatBytes32String(rawKey);
-
-  const hash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(rawKey));
-  return hash.slice(0, 64) + "ff";
-}
-
 export function isValidTronAddress(address: string): boolean {
   const addressLength = 34;
   const tronAddressPrefix = /^T/;
@@ -54,4 +48,32 @@ export function isValidTronAddress(address: string): boolean {
   }
 
   return true;
+}
+
+export function encodeStringAsBytes32(text): string {
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(text);
+  const paddedBytes = new Uint8Array(32).fill(0);
+
+  if (bytes.length > 32) {
+    console.log(text);
+    throw new Error("Text must be 32 bytes or shorter.");
+  }
+
+  paddedBytes.set(bytes);
+
+  return "0x" + Buffer.from(paddedBytes).toString("hex");
+}
+
+export function encodeStringAsBytes(text: string): string {
+  const encoder = new TextEncoder();
+  const bytes = encoder.encode(text);
+  return "0x" + Buffer.from(bytes).toString("hex");
+}
+
+export function decodeBytesAsString(bytesHex: string): string {
+  let hexString = bytesHex.substring(2); // remove the "0x" prefix
+  let bytes = Buffer.from(hexString, "hex");
+  let decoder = new TextDecoder();
+  return decoder.decode(bytes);
 }

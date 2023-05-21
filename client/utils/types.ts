@@ -21,3 +21,5 @@ export type Metadata = {
 export type Scores = {
   [key: string]: number;
 };
+
+export type Review = Record<string, any>;

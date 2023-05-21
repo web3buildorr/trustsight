@@ -1,7 +1,16 @@
 import { Search2Icon } from "@chakra-ui/icons";
-import { HStack, VStack, Text, Input, Image, Box } from "@chakra-ui/react";
+import {
+  HStack,
+  VStack,
+  Text,
+  Input,
+  Image,
+  Box,
+  useToast,
+} from "@chakra-ui/react";
 import { categories, projects, featuredReviews } from "@data/data";
 import styles from "@styles/Home.module.css";
+import { toastSearchFailed } from "@utils/toast";
 import {
   abridgeAddress,
   abridgeCharacters,
@@ -14,6 +23,7 @@ function Home() {
   const router = useRouter();
   const [selected, setSelected] = useState("DeFi");
   const isNavbar = false;
+  const toast = useToast();
   const [inputValue, setInputValue] = useState("");
 
   function handleInputChange(e: any) {
@@ -22,6 +32,10 @@ function Home() {
 
   function handleNavigation(e: any) {
     e.preventDefault();
+    if (!isValidTronAddress(inputValue)) {
+      toastSearchFailed(toast, "Invalid TRON Address");
+      return;
+    }
     if (inputValue.length === 0) return;
     router.push(`/address/${inputValue}`);
   }
@@ -89,7 +103,7 @@ function Home() {
                 <VStack w="100%" pt=".3rem">
                   <HStack className={styles.projectTextContainer}>
                     <Text className={styles.projectTitle}>
-                      {abridgeCharacters(title, 16)}
+                      {abridgeCharacters(title, 14)}
                     </Text>
                     <HStack>
                       <Image
