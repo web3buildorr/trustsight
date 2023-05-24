@@ -2,6 +2,12 @@
 
 This is the EigenTrust algorithm v1 that powers TrustSight on the Tron blockchain. It uses the TronWeb library to communicate with the Tron blockchain. 
 
+## Additional Resources
+
+- https://en.wikipedia.org/wiki/EigenTrust
+- http://ilpubs.stanford.edu:8090/562/1/2002-56.pdf
+- https://medium.com/oscar-tech/developing-the-eigentrust-algorithm-and-determining-trustworthiness-online-6c51b2c2938f
+
 ## Dependencies
 
 This project relies on the following dependencies:
