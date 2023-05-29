@@ -28,13 +28,6 @@ import StarRating from "@components/StarRating";
 import ReviewsSection from "@components/ReviewsSection";
 import { Metadata, Scores } from "@utils/types";
 
-const WEB3_STORAGE_TOKEN = process.env.NEXT_PUBLIC_WEB3_STORAGE_API_KEY;
-
-const client = new Web3Storage({
-  token: WEB3_STORAGE_TOKEN,
-  endpoint: new URL("https://api.web3.storage"),
-});
-
 function Address() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [metadata, setMetadata] = useState<Metadata | undefined>();

@@ -3,6 +3,7 @@
   justify-content: space-between;
   width: 100%;
   padding: 2rem;
+  padding-top: 3rem;
   z-index: 100 !important;
   height: 72px;
   z-index: 1;
@@ -18,4 +19,21 @@
 
 .connectButton {
   width: 160px;
+}
+
+.navbarContainer {
+  position: absolute;
+  width: 100%;
+  z-index: 100 !important;
+  color: white;
+}
+
+.announcement {
+  width: 100%;
+  padding: 0.1rem;
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  background-color: #2a46eb;
+  z-index: 10;
 }

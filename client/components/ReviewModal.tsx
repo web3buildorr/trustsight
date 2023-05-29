@@ -32,7 +32,7 @@ import { Web3Storage } from "web3.storage";
 import axios from "axios";
 import { Review } from "@utils/types";
 
-const TRUSTSCORE_REGISTRY_ADDRESS = "TTbxStTcs7Zf7yC3tfzAPx9cbpvtyC477f";
+const TRUSTSCORE_REGISTRY_ADDRESS = "TASoUmvErzXd4AxrEEHJXLFGb8tyr5Ubx6";
 
 const WEB3_STORAGE_TOKEN = process.env.NEXT_PUBLIC_WEB3_STORAGE_API_KEY;
 
@@ -355,18 +355,28 @@ function ReviewModal({
           </ModalBody>
         )}
         <ModalFooter className={styles.modalFooter}>
-          {txnHash ? (
-            <ChakraLink
-              isExternal
-              href={`https://nile.tronscan.org/#/transaction/${txnHash}`}
-            >
-              <Button className={styles.submitButton}>View Transaction</Button>
-            </ChakraLink>
-          ) : (
-            <Button className={styles.submitButton} onClick={createReview}>
-              {isTxnLoading ? <Spinner color="white" /> : "Submit Review"}
-            </Button>
-          )}
+          <VStack>
+            {txnHash ? (
+              <ChakraLink
+                isExternal
+                href={`https://tronscan.org/#/transaction/${txnHash}`}
+              >
+                <Button className={styles.submitButton}>
+                  View Transaction
+                </Button>
+              </ChakraLink>
+            ) : (
+              <Button className={styles.submitButton} onClick={createReview}>
+                {isTxnLoading ? <Spinner color="white" /> : "Submit Review"}
+              </Button>
+            )}
+            {!txnHash && (
+              <Text fontSize="14px" pt="1rem">
+                The contract you will interact with has not been audited for
+                production usage. Please use at your own discretion.
+              </Text>
+            )}
+          </VStack>
         </ModalFooter>
       </ModalContent>
     </Modal>

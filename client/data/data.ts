@@ -719,10 +719,10 @@ export const projects = [
     category: "nft",
   },
   {
-    title: "T-Rex Punks",
-    image: "/nft/trex.jpg",
+    title: "Tron Bull Club",
+    image: "/nft/tronbull.jpg",
     score: 4.78,
-    address: "TKzxdSv2FZKQrEqkKVgp5DcwEXBEKMg2Ax",
+    address: "TQ4Z2CrPCJpEw8RfW1w6zSoBhhMtsnqdP9",
     reviews: 48,
     category: "nft",
   },

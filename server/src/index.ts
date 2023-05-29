@@ -200,7 +200,7 @@ app.put("/api/reviews", async (req: Request, res: Response) => {
         { _id: _id as any },
         {
           $set: {
-            likes: { [newLike]: true },
+            [`likes.${newLike}`]: true,
           },
         },
         { upsert: true }
@@ -212,7 +212,7 @@ app.put("/api/reviews", async (req: Request, res: Response) => {
         { _id: _id as any },
         {
           $set: {
-            comments: { [newComment.commenter]: newComment },
+            [`comments.${newComment.commenter}`]: newComment,
           },
         },
         { upsert: true }

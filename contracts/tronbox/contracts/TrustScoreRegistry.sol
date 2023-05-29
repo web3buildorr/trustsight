@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
 
+// Note: This contract has not been audited for production usage,
+// please use your discretion when interacting with the code.
 contract TrustScoreRegistry {
     // A nested mapping to store reviews for each user (reviewee) submitted by another user (reviewer).
     // Structure: registry[reviewer][reviewee][key] = score

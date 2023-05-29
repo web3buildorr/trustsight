@@ -15,8 +15,8 @@ import { abridgeAddress } from "@utils/utils";
 import { Select } from "@chakra-ui/react";
 import { useMemo, useState } from "react";
 import Jdenticon from "react-jdenticon";
-
-import { reviews, scoreMap } from "@data/data";
+import { scoreMap } from "@data/data";
+import { useRouter } from "next/router";
 
 type ReviewsSectionProps = {
   givenReviews: any[];
@@ -29,6 +29,7 @@ function ReviewsSection({
 }: ReviewsSectionProps) {
   const [sortReviews, setSortReviews] = useState("recent");
   const [filterReviews, setFilterReviews] = useState("all");
+  const router = useRouter();
 
   const givenReviewList = useMemo(() => {
     if (sortReviews === "recent")
@@ -145,7 +146,11 @@ function ReviewsSection({
                 filteredReceivedReviewList.map(
                   ({ reviewer, trust, comment, createdAt }, index) => (
                     <HStack key={index} className={styles.reviewContainer}>
-                      <VStack className={styles.leftReviewSection}>
+                      <VStack
+                        className={styles.leftReviewSection}
+                        onClick={() => router.push(`/address/${reviewer}`)}
+                        cursor="pointer"
+                      >
                         <Jdenticon
                           value={reviewer as string}
                           className={styles.reviewImage}
