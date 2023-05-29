@@ -49,13 +49,13 @@ By following these steps, you can thoroughly test the functionality and usabilit
 
 ## TrustSight Contract
 
-You can view the test version of our TrustSight contract on Tronscan below:
+You can view our TrustSight contract addresses below:
+
+TRON Mainnet: [TASoUmvErzXd4AxrEEHJXLFGb8tyr5Ubx6](https://tronscan.org/#/contract/TASoUmvErzXd4AxrEEHJXLFGb8tyr5Ubx6/code)
 
 Nile Testnet: [TTbxStTcs7Zf7yC3tfzAPx9cbpvtyC477f](https://nile.tronscan.org/#/contract/TTbxStTcs7Zf7yC3tfzAPx9cbpvtyC477f/transactions)
 
 To better understand the contract, you can read our documentation [here](contracts/README.md) where we've explained in detail how the contract was built and its functionalities.
-
-We will follow-up with a Mainnet version of the contract in the coming week.
 
 ## EigenTrust Algorithm
 
